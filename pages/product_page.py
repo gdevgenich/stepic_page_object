@@ -1,6 +1,7 @@
 from .base_page import BasePage
 from .locators import ProductLocators
 import math
+from selenium.common.exceptions import NoAlertPresentException
 
 
 class ProductPage(BasePage):
@@ -8,13 +9,19 @@ class ProductPage(BasePage):
     def add_to_cart(self):
         self.browser.find_element(*ProductLocators.ADD_TO_CART_BUTTON).click()
 
-    def check_cart_total(self, expected_total):
+    def check_cart_total(self, expected_price):
         total = self.browser.find_element(*ProductLocators.CART_TOTAL_ALERT).text
-        assert total == expected_total, f"Expected total {expected_total} but got {total}"
+        assert total == expected_price, f"Expected total {expected_price} but got {total}"
 
     def check_added_product_name(self, expected_name):
         name = self.browser.find_element(*ProductLocators.ADDED_PRODUCT_ALERT).text
         assert name == expected_name, f"Expected total {expected_name} but got {name}"
+
+    def get_price(self):
+        return self.browser.find_element(*ProductLocators.PRODUCT_PRICE).text
+
+    def get_name(self):
+        return self.browser.find_element(*ProductLocators.PRODUCT_NAME).text
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
