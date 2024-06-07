@@ -15,7 +15,14 @@ class ProductPage(BasePage):
 
     def check_added_product_name(self, expected_name):
         name = self.browser.find_element(*ProductLocators.ADDED_PRODUCT_ALERT).text
-        assert name == expected_name, f"Expected total {expected_name} but got {name}"
+        assert name == expected_name, f"Expected text {expected_name} but got {name}"
+
+    def should_not_be_success_message(self):
+        assert not self.is_element_present(*ProductLocators.ADDED_PRODUCT_ALERT), \
+            "Success message is presented"
+
+    def success_message_disappear(self):
+        assert self.is_disappeared(*ProductLocators.ADDED_PRODUCT_ALERT)
 
     def get_price(self):
         return self.browser.find_element(*ProductLocators.PRODUCT_PRICE).text
