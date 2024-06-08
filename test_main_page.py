@@ -1,7 +1,7 @@
-from pages.main_page import MainPage
-from pages.basket_page import BasketPage
+from .pages.main_page import MainPage
+from .pages.basket_page import BasketPage
+from .pages.login_page import LoginPage
 from selenium.webdriver.remote.webdriver import WebDriver
-from pages.login_page import LoginPage
 
 
 def test_guest_should_see_login_link(browser: WebDriver):
